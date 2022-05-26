@@ -1,1 +1,15 @@
-<p>recipes-item works!</p>
+<div class="list-group">
+    <a  
+        href="#" 
+        class="list-group-item d-flex justify-content-between"
+        (click)="onSelected()"    
+    >
+        <div>
+            <h4>{{recipe.name}}</h4>
+            <p>{{recipe.description}}</p>
+        </div>
+        <div>
+            <img src="{{recipe.imagePath}}" alt="{{recipe.name}}" style="max-height: 70px;">
+        </div>
+    </a>
+</div>
