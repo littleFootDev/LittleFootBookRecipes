@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'app-header',
@@ -6,12 +6,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 })
 export class HeaderComponent {
     public navbarCollapsed = true
-    @Output() featureSelected = new EventEmitter<string>();
     public toggleNavbar(): void {
         this.navbarCollapsed = !this.navbarCollapsed
-    }
-
-    public onSelect(feature: string): void {
-        this.featureSelected.emit(feature)
     }
 }
