@@ -1,4 +1,5 @@
 import { EventEmitter } from "@angular/core";
+import {Subject} from 'rxjs';
 import { IIngredient } from "../shared/ingredient.interface";
 
 export class SoppingListService {
@@ -21,7 +22,7 @@ export class SoppingListService {
 
     addIngredient(ingredient: IIngredient) {
         this.ingredients.push(ingredient);
-        this.ingredientChanged.emit(this.ingredients.slice());
+        this.ingredientChanged.next(this.ingredients.slice());
     };
 
     addIngredients(ingredients: IIngredient[]) {
@@ -29,6 +30,6 @@ export class SoppingListService {
       //   this.addIngredient(ingredient);
       // }
       this.ingredients.push(...ingredients);
-      this.ingredientChanged.emit(this.ingredients.slice());
+      this.ingredientChanged.next(this.ingredients.slice());
     }
 }
