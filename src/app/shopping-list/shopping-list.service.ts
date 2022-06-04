@@ -1,9 +1,10 @@
-import { EventEmitter } from "@angular/core";
+
 import {Subject} from 'rxjs';
 import { IIngredient } from "../shared/ingredient.interface";
 
 export class SoppingListService {
-    ingredientChanged = new EventEmitter<IIngredient[]>();
+    ingredientChanged = new Subject<IIngredient[]>();
+    startedEditing = new Subject<number>();
 
     private ingredients: IIngredient[] = [
         {
@@ -20,6 +21,10 @@ export class SoppingListService {
         return this.ingredients.slice();
     };
 
+    getIngredient(index: number) {
+      return this.ingredients[index]
+    }
+
     addIngredient(ingredient: IIngredient) {
         this.ingredients.push(ingredient);
         this.ingredientChanged.next(this.ingredients.slice());
@@ -31,5 +36,15 @@ export class SoppingListService {
       // }
       this.ingredients.push(...ingredients);
       this.ingredientChanged.next(this.ingredients.slice());
+    }
+
+    updateIngredient(index: number, newIngredient: IIngredient) {
+      this.ingredients[index] = newIngredient;
+      this.ingredientChanged.next(this.ingredients.slice());
+    }
+
+    deleteIngredient(index: number) {
+      this.ingredients.splice(index, 1);
+      this.ingredientChanged.next(this.ingredients.slice())
     }
 }
