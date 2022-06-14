@@ -25,6 +25,4 @@ import { PlaceholderDirective } from "./placeholder/placeholder.directive";
         CommonModule,
     ]
 })
-export class SharedModule {
-
-}
+export class SharedModule {}
