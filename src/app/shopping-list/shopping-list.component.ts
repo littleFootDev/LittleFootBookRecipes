@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import {Subscription, Observable } from 'rxjs';
+import { Store } from '@ngrx/store'
 
 import { IIngredient } from '../shared/ingredient.interface';
 import { SoppingListService } from './shopping-list.service';
@@ -11,24 +12,28 @@ import { SoppingListService } from './shopping-list.service';
 
 })
 export class ShoppingListComponent implements OnInit, OnDestroy {
-  public ingredients!: IIngredient[];
-  private igChangedSub! : Subscription;
+  public ingredients?: Observable<{ingredients: IIngredient[]}> ;
+  //private igChangedSub! : Subscription;
   
 
-  constructor(private slService : SoppingListService) { }
+  constructor(
+    private slService : SoppingListService,
+    private store : Store<{shoppingList: {ingredients: IIngredient[]}}>
+  ) { }
 
   ngOnInit(): void {
-    this.ingredients = this.slService.getIngredients();
-    this.igChangedSub = this.slService.ingredientChanged
-      .subscribe(
-       (ingredients: IIngredient[]) => {
-          this.ingredients = ingredients;
-        }
-      );
+    this.ingredients = this.store.select('shoppingList');
+    // this.ingredients = this.slService.getIngredients();
+    // this.igChangedSub = this.slService.ingredientChanged
+    //   .subscribe(
+    //    (ingredients: IIngredient[]) => {
+    //       this.ingredients = ingredients;
+    //     }
+    //   );
   }
   ngOnDestroy(): void {
     
-    this.igChangedSub.unsubscribe();
+    // this.igChangedSub.unsubscribe();
   }
   
 
